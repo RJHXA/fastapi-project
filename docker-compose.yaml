@@ -6,8 +6,12 @@ services:
       - "8000:8000"
     depends_on:
       - db
-    env_file:
-      - .env
+    environment:
+      - DB_USER=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_PASS=password
+      - DB_NAME=fastapi_db
     volumes:
       - .:/app
 
@@ -15,10 +19,12 @@ services:
     image: postgres:15
     container_name: fastapi_db
     restart: always
-    env_file:
-      - .env
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=fastapi_db
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

@@ -1,5 +1,7 @@
 from sqlalchemy import create_engine, exc
 from sqlalchemy.orm import sessionmaker, declarative_base
+from alembic.config import Config
+from alembic import command
 from dotenv import load_dotenv
 import time
 import os
@@ -36,3 +38,7 @@ def get_db():
     yield db
   finally:
     db.close()
+
+def run_migrations():
+  alembic_cfg = Config(os.path.join(os.path.dirname(__file__), "alembic.ini"))
+  command.upgrade(alembic_cfg, "head")
