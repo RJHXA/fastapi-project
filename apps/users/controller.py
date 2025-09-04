@@ -3,7 +3,7 @@ from .schemas import UserSchema
 from sqlalchemy.orm import Session
 from database import get_db
 from .repository import UserRepository
-from ..auth.controller import require_auth
+from ..auth.utils import require_auth
 
 router = APIRouter(
   prefix="/users",

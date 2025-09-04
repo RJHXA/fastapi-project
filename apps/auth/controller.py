@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import HTTPBearer
 from ..users.repository import UserRepository
 from sqlalchemy.orm import Session
 from database import get_db
@@ -12,22 +11,7 @@ router = APIRouter(
   tags=["auth"]
 )
 
-security = HTTPBearer()
-
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
-
-def require_auth(credentials = Depends(security)):
-  token = credentials.credentials
-  authentication = check_auth(token)
-
-  if authentication == False:
-    raise HTTPException(
-      status_code=status.HTTP_401_UNAUTHORIZED,
-      detail="Invalid token",
-      headers={"WWW-Authenticate": "Bearer"},
-    )
-  
-  return True
 
 @router.post("/token")
 async def token(form_data: LoginForm, db: Session = Depends(get_db) ):
