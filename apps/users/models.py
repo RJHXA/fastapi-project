@@ -3,27 +3,29 @@ from sqlalchemy import (
   String,
   DateTime,
   Boolean,
+  Enum as Db_Enum
 )
 from sqlalchemy.dialects.postgresql import UUID
 from database import Base
 from datetime import datetime, timezone
+from enum import Enum
 import uuid
+
+class UserType(Enum):
+  ADMIN = "ADMIN"
+  NORMAL = "NORMAL"
 
 class User(Base):
   __tablename__ = "users"
 
-  id: str = Column(
-    UUID(as_uuid=True),
-    primary_key=True,
-    default=uuid.uuid4,
-    unique=True,
-    index=True
-  )
+  id: str = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, index=True)
   first_name: str = Column(String(100), nullable=False)
   last_name: str = Column(String(100), nullable=False)
-  email: str = Column(String(100), nullable=False)
+  email: str = Column(String(100), unique=True, index=True, nullable=False)
+  phone_number: str = Column(String(100), nullable=False)
   password: str = Column(String(100), nullable=False)
   is_active: bool = Column(Boolean, default=True)
+  type: UserType = Column(Db_Enum(UserType), default=UserType.NORMAL)
 
   created_at: datetime = Column(
     DateTime, 
