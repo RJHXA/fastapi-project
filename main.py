@@ -1,6 +1,7 @@
 from fastapi import FastAPI
-from database import Base, engine, run_migrations
+
 from apps import include_router
+from database import run_migrations
 
 app = FastAPI(title="Project Demo", version="1.0.0")
 

@@ -1,0 +1,36 @@
+[tool.ruff]
+line-length = 88
+
+target-version = "py312"
+
+ignore = [
+  "E501",  # não forçar quebra de linha (já que usamos line-length)
+]
+
+exclude = [
+  ".git",
+  ".venv",
+  "__pycache__",
+  "alembic",        # migrações
+  "migrations",     # caso use esse nome em outro projeto
+  "tests/__pycache__",
+]
+
+extend-select = [
+  "Q",   # consistência em aspas
+  "I",   # organização de imports (isort style)
+  "UP",  # sugerir melhorias de Python moderno
+]
+
+[tool.ruff.lint]
+select = [
+  "E",
+  "F",
+  "W",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "lf"

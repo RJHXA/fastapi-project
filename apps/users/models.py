@@ -1,15 +1,13 @@
-from sqlalchemy import (
-  Column,
-  String,
-  DateTime,
-  Boolean,
-  Enum as Db_Enum
-)
-from sqlalchemy.dialects.postgresql import UUID
-from database import Base
-from datetime import datetime, timezone
-from enum import Enum
 import uuid
+from datetime import UTC, datetime
+from enum import Enum
+
+from sqlalchemy import Boolean, Column, DateTime, String
+from sqlalchemy import Enum as Db_Enum
+from sqlalchemy.dialects.postgresql import UUID
+
+from database import Base
+
 
 class UserType(Enum):
   ADMIN = "ADMIN"
@@ -28,11 +26,11 @@ class User(Base):
   type: UserType = Column(Db_Enum(UserType), default=UserType.NORMAL)
 
   created_at: datetime = Column(
-    DateTime, 
-    default=lambda: datetime.now(timezone.utc)
+    DateTime,
+    default=lambda: datetime.now(UTC)
   )
   updated_at: datetime = Column(
-    DateTime, 
-    default=lambda: datetime.now(timezone.utc),
-    onupdate=lambda: datetime.now(timezone.utc)
+    DateTime,
+    default=lambda: datetime.now(UTC),
+    onupdate=lambda: datetime.now(UTC)
   )

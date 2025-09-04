@@ -1,10 +1,12 @@
-from sqlalchemy import create_engine, exc
-from sqlalchemy.orm import sessionmaker, declarative_base
-from alembic.config import Config
-from alembic import command
-from dotenv import load_dotenv
-import time
 import os
+import time
+
+from dotenv import load_dotenv
+from sqlalchemy import create_engine, exc
+from sqlalchemy.orm import declarative_base, sessionmaker
+
+from alembic import command
+from alembic.config import Config
 
 load_dotenv()
 

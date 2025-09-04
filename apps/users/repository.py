@@ -1,7 +1,9 @@
 from sqlalchemy.orm import Session
-from .schemas import UserSchema
-from .models import User
+
 from ..auth.utils import get_hash_password
+from .models import User
+from .schemas import UserSchema
+
 
 class UserRepository:
   @staticmethod
@@ -19,7 +21,7 @@ class UserRepository:
 
     db.commit()
     return user
-  
+
   @staticmethod
   async def find_by_email(email: str, db: Session):
     return db.query(User).filter(User.email == email).first()

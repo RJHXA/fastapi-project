@@ -1,5 +1,7 @@
 from pydantic import BaseModel
+
 from .models import UserType
+
 
 class UserSchema(BaseModel):
   first_name: str

@@ -1,12 +1,15 @@
-from fastapi import FastAPI
-from .users.controller import router as users_router
-from .auth.controller import router as auth_router
-from config.settings import INSTALLED_APPS, MODEL_FILE_NAME
 import importlib
+
+from fastapi import FastAPI
+
+from config.settings import INSTALLED_APPS, MODEL_FILE_NAME
+
+from .auth.controller import router as auth_router
+from .users.controller import router as users_router
 
 for app in INSTALLED_APPS:
   try:
-    importlib.import_module(f'{app}.{MODEL_FILE_NAME[:-3]}')
+    importlib.import_module(f"{app}.{MODEL_FILE_NAME[:-3]}")
   except ModuleNotFoundError as e:
     print(e)
     continue
